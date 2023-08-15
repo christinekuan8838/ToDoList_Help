@@ -36,6 +36,8 @@ struct ContentView: View {
                     Text("+")
                         
                 }
+           //     .transition(.opacity)
+
             }
             .padding()
             
@@ -43,7 +45,14 @@ struct ContentView: View {
             //Add a Spacer here
             List {
                 ForEach(toDoItems){
-                    toDoItem in Text(toDoItem.title)
+                    toDoItem in
+                    if toDoItem.isImportant == true {
+                        Text("‼️" + toDoItem.title)
+                    } else {
+                        Text(toDoItem.title)
+                        
+                    }
+                    
                     
                 }
             }
