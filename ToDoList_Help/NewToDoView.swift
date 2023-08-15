@@ -20,6 +20,9 @@ struct NewToDoView: View {
     //Bind the ToDoItems array here
         //Delete the ToDoItems array binding in iteration 2
     @State var isImportant : Bool
+    @Binding var toDoItems: [ToDoItem]//creates a two way connection
+    @Binding var showNewTask : Bool
+    
     
     //Bind the showNewTask property here
     
@@ -32,6 +35,7 @@ struct NewToDoView: View {
                 .font(.title)
                 .shadow(radius: 1)
                 .fontWeight(.bold)
+            
             //Add TextField here with the Text "Enter task description" and binded to the title state property (text: $title)
                 .frame(height: 90.0)
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/);
@@ -55,9 +59,13 @@ struct NewToDoView: View {
             
             //Add Button here, delete any code in the action and with the text "Add"
             Button (action: {
+                self.showNewTask = false
                 
+                self.addTask(title: self.title, isImportant: self.isImportant)
             }) {
                 Text("Add")
+        
+
      
             }
             .buttonStyle(.borderedProminent)
@@ -69,18 +77,20 @@ struct NewToDoView: View {
             .padding()
         }
     }
-    //Add the private function addTask here
+    private func addTask(title: String, isImportant: Bool = false) {
+            
+            let task = ToDoItem(title: title, isImportant: isImportant)
+            toDoItems.append(task)
+        }    //Add the private function addTask here
+    
         //In Iteration 2, update the function to save input to Core Data
 }
 
 struct NewToDoView_Previews: PreviewProvider {
     static var previews: some View {
-        NewToDoView(title : "", isImportant : false)
+        NewToDoView(title : "", isImportant : false, toDoItems: .constant([]), showNewTask : .constant(true))
             //Add toDoItems: .constant([]) here (Iteration 1)
             //Add showNewTask: .constant(true) (Iteration 1)
             //Delete toDoItems: .constant([]) (Iteration 2_
-
-
-        
     }
 }

@@ -10,9 +10,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State var toDoItems:
+    [ToDoItem] = []
     //In Iteration 2, add @Environment here
-    
+    @State private var showNewTask = false
     //Add a State property called toDoItems that holds an empty array of ToDoItems
     
     //Add a State property called showNewTask that is set to false
@@ -29,20 +30,31 @@ struct ContentView: View {
                 
                 //Add a Button here with Text("+") and delete any code in the action
                 Button (action: {
+                    self.showNewTask = true
+               
                 }) {
                     Text("+")
                         
                 }
             }
             .padding()
+            
             //Add a padding modifier here
             //Add a Spacer here
-            
+            List {
+                ForEach(toDoItems){
+                    toDoItem in Text(toDoItem.title)
+                    
+                }
+            }
             //Add a List View here
                 //In Iteration 1, delte the Text View and add an if statement inside the list view that indicates to add !! to ToDoItems that are marked important
                     //In Iteration 2, add optionals to the Text views in the if statement
                         //In Iteration 2, add the onDelete modifier before the closing bracket of the For Each statement
    
+        }
+        if showNewTask {
+            NewToDoView(title: "", isImportant : false, toDoItems: $toDoItems, showNewTask: $showNewTask)
         }
         
         //Add an if statement here that indicates if showNewTask is true, then NewToDoView will be displayed
